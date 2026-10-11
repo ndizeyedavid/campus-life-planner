@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="About Campus Life Planner | purpose, features, regular-expression catalog, keyboard map and contact details." />
+  <meta name="theme-color" content="#fc4f24" />
+  <title>About | Campus Life Planner</title>
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <script>
+    try {
+      var t = localStorage.getItem("campus-life-planner:theme");
+      if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t);
+      if (localStorage.getItem("campus-life-planner:sidebar") === "collapsed") {
+        document.documentElement.setAttribute("data-sidebar", "collapsed");
+      }
+    }  catch (error) {
+      console.log("Failed to load UI states: ", error);
+    }
+  </script>
+  <style>
+    .boot-splash {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: grid;
+      place-items: center;
+      background: #fdfcfb;
+      color: #1a1613;
+      padding: 24px;
+      text-align: center;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif
+    }
+
+    .boot-splash__inner {
+      display: grid;
+      gap: 14px;
+      justify-items: center;
+      max-width: 320px
+    }
+
+    .boot-splash__mark {
+      width: 56px;
+      height: 56px;
+      border-radius: 10px;
+      background: #fc4f24;
+      color: #1a1613;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 20px;
+      letter-spacing: -.02em
+    }
+
+    .boot-splash__title {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 0
+    }
+
+    .boot-splash__bar {
+      width: 180px;
+      height: 4px;
+      border-radius: 999px;
+      background: #f1eeea;
+      overflow: hidden
+    }
+
+    .boot-splash__fill {
+      display: block;
+      height: 100%;
+      width: 40%;
+      border-radius: 999px;
+      background: #fc4f24;
+      animation: boot-slide 1.1s cubic-bezier(.2, .8, .2, 1) infinite
+    }
+
+    @keyframes boot-slide {
+      0% {
+        transform: translateX(-100%)
+      }
+
+      100% {
+        transform: translateX(250%)
+      }
+    }
+
+    .boot-splash__status {
+      font-size: 13px;
+      color: #6b635b;
+      margin: 0;
+      min-height: 20px
+    }
+
+    html[data-theme="dark"] .boot-splash {
+      background: #14110f;
+      color: #f5f1ee
+    }
+
+    html[data-theme="dark"] .boot-splash__bar {
+      background: #1d222a
+    }
+
+    html[data-theme="dark"] .boot-splash__status {
+      color: #a3aab6
+    }
+
+    .boot-splash.is-leaving {
+      animation: fadeOut .25s cubic-bezier(.2, .8, .2, 1) forwards
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden
+      }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      .boot-splash__fill {
+        animation: none;
+        width: 100%
+      }
+    }
+  </style>
+</head>
+
+<body data-page="about">
+  <div class="boot-splash" id="bootSplash">
+    <div class="boot-splash__inner">
+      <div class="boot-splash__mark" aria-hidden="true">
+        <img src="/assets/favicon.svg" alt="Logo">
+      </div>
+      <p class="boot-splash__title">Campus Life Planner</p>
+      <div class="boot-splash__bar" aria-hidden="true"><span class="boot-splash__fill"></span></div>
+      <p class="boot-splash__status" id="bootStatus" role="status" aria-live="polite">Loading your planner&hellip;</p>
+    </div>
+  </div>
+
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <div class="app">
+    <aside class="sidebar" id="sidebar" aria-label="Primary">
+      <div class="sidebar__inner">
+        <div class="profile">
+          <div class="profile__avatar" aria-hidden="true">
+            <img src="/assets/favicon.svg" alt="Logo">
+          </div>
+          <div class="profile__meta">
+            <p class="profile__name">Student</p>
+            <p class="profile__plan">Campus Life Planner</p>
+          </div>
+          <button type="button" class="icon-btn sidebar__menu-close" id="sidebarClose"
+            aria-label="Close navigation menu">
+            <i class="fa-solid fa-xmark fa-icon" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="icon-btn sidebar__toggle" id="sidebarToggle" aria-expanded="true"
+            aria-controls="sidebar">
+            <i class="fa-solid fa-angles-left fa-icon" aria-hidden="true"></i>
+            <span class="sr-only" id="sidebarToggleLabel">Collapse sidebar</span>
+          </button>
+        </div>
+
+        <form class="quickfind" role="search" id="quickFindForm" action="table.html" method="get">
+          <i class="fa-solid fa-magnifying-glass fa-icon" aria-hidden="true"></i>
+          <label class="sr-only" for="quickFind">Quick find | jump to regex search</label>
+          <input type="search" id="quickFind" name="q" class="quickfind__input" placeholder="Quick find…"
+            autocomplete="off" />
+          <kbd class="quickfind__kbd" id="quickFindKbd" aria-hidden="true">Ctrl K</kbd>
+          <button type="button" class="icon-btn quickfind__expand" id="sidebarExpand">
+            <i class="fa-solid fa-magnifying-glass fa-icon" aria-hidden="true"></i>
+            <span class="sr-only">Expand the sidebar to search</span>
+          </button>
+          <button type="submit" class="sr-only">Search</button>
+        </form>
+
+        <nav class="nav" aria-label="Main">
+          <ul class="nav__list">
+            <li><a class="nav__item" href="index.html"><i class="fa-solid fa-gauge-high fa-icon"
+                  aria-hidden="true"></i><span class="nav__label">Dashboard</span></a></li>
+            <li><a class="nav__item" href="board.html"><i class="fa-solid fa-table-columns fa-icon"
+                  aria-hidden="true"></i><span class="nav__label">Board</span><span class="nav__badge"
+                  id="badgeTodo">0</span></a></li>
+            <li><a class="nav__item" href="table.html"><i class="fa-solid fa-table-list fa-icon"
+                  aria-hidden="true"></i><span class="nav__label">Table</span></a></li>
+            <li><a class="nav__item" href="calendar.html"><i class="fa-solid fa-calendar-days fa-icon"
+                  aria-hidden="true"></i><span class="nav__label">Calendar</span></a></li>
+            <li><a class="nav__item is-active" href="about.html" aria-current="page"><i
+                  class="fa-solid fa-circle-info fa-icon" aria-hidden="true"></i><span
+                  class="nav__label">About</span></a></li>
+            <li><a class="nav__item" href="settings.html"><i class="fa-solid fa-sliders fa-icon"
+                  aria-hidden="true"></i><span class="nav__label">Settings</span></a></li>
+          </ul>
+        </nav>
+
+        <section class="workspace" aria-labelledby="workspaceHeading">
+          <div class="workspace__head">
+            <h2 class="workspace__title" id="workspaceHeading">Categories</h2>
+            <a class="icon-btn" href="settings.html#categories" aria-label="Manage categories in Settings"><i
+                class="fa-solid fa-plus fa-icon" aria-hidden="true"></i></a>
+          </div>
+          <ul class="workspace__list" id="workspaceList"></ul>
+        </section>
+
+        <div class="sidebar__bottom">
+          <!-- <button type="button" class="nav__item" id="importBtn">
+            <i class="fa-solid fa-file-import fa-icon" aria-hidden="true"></i><span class="nav__label">Import
+              JSON</span>
+          </button> -->
+          <button type="button" class="nav__item" id="exportBtn"><i class="fa-solid fa-file-export fa-icon"
+              aria-hidden="true"></i><span class="nav__label">Export JSON</span></button>
+        </div>
+      </div>
+    </aside>
+
+    <div class="backdrop" id="backdrop" hidden></div>
+
+    <div class="main-wrap">
+      <header class="topbar">
+        <button type="button" class="icon-btn topbar__menu" id="sidebarOpen" aria-label="Open navigation menu"
+          aria-expanded="false" aria-controls="sidebar">
+          <i class="fa-solid fa-bars fa-icon" aria-hidden="true"></i>
+        </button>
+        <p class="topbar__crumbs">
+          <span class="crumbs__root">Campus Life</span>
+          <span class="crumbs__sep" aria-hidden="true">/</span>
+          <span class="crumbs__page">About</span>
+        </p>
+        <div class="topbar__actions">
+          <button type="button" class="btn btn--ghost" id="themeToggle" aria-pressed="false">
+            <i class="fa-solid fa-moon fa-icon" aria-hidden="true"></i><span class="sr-only"
+              id="themeToggleLabel">Switch to the dark theme</span>
+          </button>
+          <a class="btn btn--primary" href="index.html" style="color:black; text-decoration: none;"><i class="fa-solid fa-arrow-left fa-icon"
+              aria-hidden="true"></i> Back to dashboard</a>
+        </div>
+      </header>
+
+      <div id="liveStatus" class="sr-only" role="status" aria-live="polite"></div>
+      <div id="liveAlert" class="sr-only" role="alert" aria-live="assertive"></div>
+
+      <main class="main" id="main-content" tabindex="-1">
+        <div class="view">
+          <div class="view__head">
+            <div>
+              <h1 class="view__title">About</h1>
+              <p class="view__sub">What this planner does and how it works.</p>
+            </div>
+          </div>
+
+          <section class="card" aria-labelledby="purposeHeading">
+            <h2 class="card__title" id="purposeHeading">Purpose</h2>
+            <p>
+              <strong>Campus Life Planner</strong> is a small web app for students who need one
+              place to keep track of assignments, study sessions, club activities and campus logistics. Every task
+              carries a title, a category, a duration in minutes and a due date, which is enough to answer the
+              questions that actually matter: <em>what is due next, how much time have I planned, and am I over my
+                weekly target?</em>
+            </p>
+            <p style="margin-top:12px">
+              It is built with plain HTML, CSS and JavaScript with no framework and no build step. All of your data is stored on your own browser via <code>localStorage</code>. There is also a service worker caches the
+              shell so the app still opens when you are offline on campus.
+            </p>
+          </section>
+
+          <section class="card" style="margin-top:16px" aria-labelledby="featuresHeading">
+            <h2 class="card__title" id="featuresHeading">Main Features</h2>
+            <ul class="about-list">
+              <li><strong>Six real pages</strong>: Dashboard, Board, Table, Calendar, About and Settings, each with its
+                own URL and a single top-level heading.</li>
+              <li><strong>Dashboard</strong>: total tasks, completion rate, total planned time, top category, a
+                Chart.js 7-day creation trend and a weekly-target meter.</li>
+              <li><strong>First-run setup</strong>: five quick steps for your name, theme, planning preferences, sample
+                tasks or a fresh start, and a short wrap-up. Skippable, and editable later in Settings.</li>
+              <li><strong>Board</strong>: drag a card into any column, or use the <em>Move to</em> button; keyboard and
+                touch are both first-class.</li>
+              <li><strong>Table</strong>: sortable on every column (<code>aria-sort</code> is exposed) with live regex
+                search and <code>&lt;mark&gt;</code> highlighting.</li>
+              <li><strong>Calendar</strong>: month grid keyed to due dates, plus a flat list of the month's tasks for
+                screen-reader users.</li>
+              <li><strong>Settings</strong>: units, weekly target, editable categories, theme, image storage, and JSON
+                / CSV import &amp; export.</li>
+              <li><strong>Google Calendar</strong>: push tasks to Google Calendar through a
+                pre-filled event link per task, or a bulk <code>.ics</code> download you can import.</li>
+              <li><strong>Image attachments</strong>: optionally attach one picture to a task and everything is kept on this device only.</li>
+              <li><strong>Validation</strong>: six blocking regex rules plus three advanced ones (back-reference,
+                negative lookahead and lookbehind) with inline error messages.</li>
+              <li><strong>Persistence</strong>: every change auto-saves; imports are structurally validated before
+                anything is replaced.</li>
+            </ul>
+          </section>
+
+          <section class="card" style="margin-top:16px" aria-labelledby="regexHeading">
+            <h2 class="card__title" id="regexHeading">Regular-expression catalog</h2>
+            <div class="regex-table__wrap">
+              <table class="regex-table">
+                <caption class="sr-only">Regular expressions used for validation and search</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Rule</th>
+                    <th scope="col">Pattern</th>
+                    <th scope="col">Why</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Title shape</td>
+                    <td><code>/^\S(?:.*\S)?$/</code></td>
+                    <td>Forbids leading and trailing spaces.</td>
+                  </tr>
+                  <tr>
+                    <td>Messy whitespace</td>
+                    <td><code>/\s{2,}|[\t\n\r\f\v]/</code></td>
+                    <td>Catches runs of spaces and stray tabs or newlines.</td>
+                  </tr>
+                  <tr>
+                    <td>Duration</td>
+                    <td><code>/^(0|[1-9]\d*)(\.\d{1,2})?$/</code></td>
+                    <td>Non-negative, at most two decimals, no leading zeros.</td>
+                  </tr>
+                  <tr>
+                    <td>Date</td>
+                    <td><code>/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/</code></td>
+                    <td><code>YYYY-MM-DD</code> with a real month and day range.</td>
+                  </tr>
+                  <tr>
+                    <td>Category</td>
+                    <td><code>/^[A-Za-z]+(?:[ -][A-Za-z]+)*$/</code></td>
+                    <td>Letters, single spaces and hyphens only.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Duplicate word</strong><br /><span class="form-hint">back-reference</span></td>
+                    <td><code>/\b(\w+)\s+\1\b/i</code></td>
+                    <td>Catches <em>study study</em> | <code>\1</code> repeats the captured word.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Dangling preposition</strong><br /><span class="form-hint">negative lookahead</span>
+                    </td>
+                    <td><code>/^(?!.*\b(?:for|to|with|and|the|of|in|on|at)\s*$).+$/</code></td>
+                    <td>Rejects a title that ends on a stop word, e.g. <em>Prepare notes for</em>.</td>
+                  </tr>
+                  <tr>
+                    <td>Time token<br /><span class="form-hint">lookbehind</span></td>
+                    <td><code>/(?&lt;!\d)\d{2}:\d{2}(?!\d)/</code></td>
+                    <td>Finds clock times such as <code>16:00</code> without matching inside <code>116:003</code>.</td>
+                  </tr>
+                  <tr>
+                    <td>Exact category</td>
+                    <td><code>^Academics$</code></td>
+                    <td>Whole-field match, used by the sidebar category filter.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="card" style="margin-top:16px" aria-labelledby="keysHeading">
+            <h2 class="card__title" id="keysHeading">Keyboard map</h2>
+            <div class="regex-table__wrap">
+              <table class="regex-table">
+                <caption class="sr-only">Keyboard shortcuts</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Key</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td>
+                    <td>Move through every interactive element, in DOM order.</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>Enter</kbd> / <kbd>Space</kbd></td>
+                    <td>Activate a link, button or board card; submit the task form.</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>K</kbd></td>
+                    <td>Jump straight to Quick find. Works even while you are typing in a field.</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>/</kbd></td>
+                    <td>The same shortcut, when not typing.</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>N</kbd></td>
+                    <td>New task dialog (ignored while typing in a field).</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>Esc</kbd></td>
+                    <td>Close the open dialog, close the mobile navigation drawer, or skip the first-run setup.</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>Enter</kbd> in setup</td>
+                    <td>Advance to the next step.</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>Tab</kbd> inside a dialog</td>
+                    <td>Focus is trapped inside the dialog until it is dismissed.</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>Enter</kbd> on a board card</td>
+                    <td>Activates its <strong>Move to</strong> button to allow you to move it to different columns.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="card" style="margin-top:16px" aria-labelledby="a11yHeading">
+            <h2 class="card__title" id="a11yHeading">Accessibility notes</h2>
+            <ul class="about-list">
+              <li>Every page has a skip link, one <code>&lt;h1&gt;</code>, and
+                <code>header</code>/<code>nav</code>/<code>main</code>/<code>footer</code> landmarks.
+              </li>
+              <li>Navigation is real links, so it works without JavaScript and announces the current page via
+                <code>aria-current="page"</code>.
+              </li>
+              <li>The sidebar collapses to an icon rail on desktop. Labels are clipped rather than hidden, so their
+                names are still announced.</li>
+              <li><code>Ctrl</code>/<code>Cmd</code>+<code>K</code> jumps to search from anywhere, including from inside
+                a form.</li>
+              <li>Sortable headers expose <code>aria-sort</code>; the horizontally scrollable table is a focusable
+                labelled region.</li>
+              <li>Status updates use <code>role="status"</code> / <code>aria-live="polite"</code>; exceeding the weekly
+                target switches to an assertive alert.</li>
+              <li>Validation errors sit next to their input, are linked with <code>aria-describedby</code>, and use
+                <code>role="alert"</code>.
+              </li>
+              <li>The styling is deliberately plain with one accent colour, a neutral scale, thin borders, and
+                shadows only where something genuinely sits above the page.</li>
+              <li>Icon-only buttons carry <code>sr-only</code> text; colour is never the only signal (priority also
+                shows a text label, overdue dates also say &ldquo;Overdue&rdquo;).</li>
+              <li>Charts. The 7-day bars are a <code>&lt;canvas&gt;</code>, which is opaque to assistive technology, so
+                the same numbers are exposed as a real list underneath.</li>
+              <li>Nothing is drag-only. Every board card keeps a <em>Move to</em> button, so the board is fully operable
+                from the keyboard; dropping announces the result in a live region.</li>
+              <li>The first-run setup is a proper modal dialog: focus is trapped, <kbd>Esc</kbd> skips it, and each step
+                is announced politely.</li>
+              <li><code>prefers-reduced-motion</code> disables every transition and animation.</li>
+            </ul>
+          </section>
+
+        </div>
+      </main>
+
+      <footer class="footer">
+        <div class="footer__inner">
+          <p>&copy; <span id="year">2026</span> Campus Life Planner &middot; Built and Designed by <a
+              href="https://github.com/ndizeyedavid" target="_blank">David Ndizeye</a></p>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script src="scripts/storage.js"></script>
+  <script src="scripts/images.js"></script>
+  <script src="scripts/validators.js"></script>
+  <script src="scripts/search.js"></script>
+  <script src="scripts/onboarding.js"></script>
+  <script src="scripts/calendar.js"></script>
+  <script src="scripts/state.js"></script>
+  <script src="scripts/ui.js"></script>
+  <script src="scripts/app.js"></script>
+</body>
+
+</html>-->
