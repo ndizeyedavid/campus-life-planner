@@ -1,6 +1,6 @@
 (function () {
   "use strict";
-  var PROID = "-//Campus Life Planner//EN";
+  var PRODID = "-//Campus Life Planner//EN";
   var UID_DOMAIN = "campus-life-planner";
 
   function toICalDate(value) {
