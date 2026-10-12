@@ -23,4 +23,38 @@
             .replace(/[-:]/g, "")
             .replace(/\.\d{3}/, "");
     }
+
+    function escapeText(value) {
+        return string(value == null ? "" : value)
+            .replace(/\\/g, "\\\\")
+            .replace(/;/g, "\\;")
+            .replace(/,/g, "\\,")
+            .replace(/\r\n|\r|\n/g, "\\n");
+    }
+
+    function foldLine(line) {
+        var encoder = typeof TextEncoder === "function" ? new TextEncoder() : null;
+        function bytes(str) {
+            return encoder ? encoder.encode(str).length : str.length;
+        }
+
+        if (bytes(line) <= 75) return line;
+
+        var out = [];
+        var current = "";
+        var limit = 75;
+
+        for (var i = 0; i < line.length; i++) {
+            var ch = line.charAt(i);
+            if (bytes(current + ch) > limit && current) {
+                out.push(current);
+                current = ch;
+                limit = 74;
+            } else {
+                current += ch;
+            }
+        }
+        out.push(current);
+        return out.join("\r\n ");
+    }
 });
