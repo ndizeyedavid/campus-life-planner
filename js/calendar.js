@@ -1,17 +1,17 @@
 (function () {
   "use strict";
+
   var PRODID = "-//Campus Life Planner//EN";
   var UID_DOMAIN = "campus-life-planner";
 
   function toICalDate(value) {
-    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(string(value || "").trim());
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(value || "").trim());
     return m ? m[1] + m[2] + m[3] : null;
   }
 
   function addDays(isoDate, days) {
-    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(string(isoDate || "").trim());
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(isoDate || "").trim());
     if (!m) return null;
-
     var d = new Date(Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3])));
     d.setUTCDate(d.getUTCDate() + days);
     return d.toISOString().slice(0, 10);
@@ -25,7 +25,7 @@
   }
 
   function escapeText(value) {
-    return string(value == null ? "" : value)
+    return String(value == null ? "" : value)
       .replace(/\\/g, "\\\\")
       .replace(/;/g, "\\;")
       .replace(/,/g, "\\,")
@@ -60,11 +60,7 @@
 
   function statusLabel(status) {
     return (
-      {
-        todo: "To Do",
-        "in-progress": "In Progress",
-        done: "Done",
-      }[status] ||
+      { todo: "To Do", "in-progress": "In Progress", done: "Done" }[status] ||
       status ||
       ""
     );
@@ -83,10 +79,8 @@
     }
     lines.push("Category: " + (record.category || ""));
     lines.push("Status: " + statusLabel(record.status));
-
     if (record.priority) lines.push("Priority: " + record.priority);
     if (record.notes) lines.push("", record.notes);
-
     lines.push("", "Exported from Campus Life Planner.");
     return lines.join("\n");
   }
@@ -109,17 +103,15 @@
       "location=" +
         encodeURIComponent(
           record.category
-            ? "Campus Life Planner . " + record.category
+            ? "Campus Life Planner · " + record.category
             : "Campus Life Planner",
         ),
     ];
-
     var offset = -new Date().getTimezoneOffset();
     var sign = offset >= 0 ? "+" : "-";
-
     var abs = Math.abs(offset);
-    var hh = string(Math.floor(abs / 60)).padStart(2, "0");
-    var mm = string(abs % 60).padStart(2, "0");
+    var hh = String(Math.floor(abs / 60)).padStart(2, "0");
+    var mm = String(abs % 60).padStart(2, "0");
     params.push("ctz=" + sign + hh + mm);
 
     return (
@@ -130,8 +122,7 @@
   function buildEventLines(record, unit, index) {
     var start = toICalDate(record.dueDate);
     if (!start) return null;
-
-    var end = toICalDate(addDays(record.dueDates, 1)) || start;
+    var end = toICalDate(addDays(record.dueDate, 1)) || start;
 
     var lines = [
       "BEGIN:VEVENT",
@@ -146,7 +137,6 @@
       "TRANSP:TRANSPARENT",
       "END:VEVENT",
     ];
-
     return lines;
   }
 
@@ -165,8 +155,8 @@
     var header = [
       "BEGIN:VCALENDAR",
       "VERSION:2.0",
-      "PROID:" + PROID,
-      "CALSCALE: GREGORIAN",
+      "PRODID:" + PRODID,
+      "CALSCALE:GREGORIAN",
       "METHOD:PUBLISH",
       "X-WR-CALNAME:" +
         escapeText(options.calendarName || "Campus Life Planner"),
@@ -175,6 +165,12 @@
 
     var out = [];
     header.forEach(pushFolded);
+    if (events.length)
+      events.forEach(function (event) {
+        event.forEach(pushFolded);
+      });
+    else pushFolded("REMINDER:No tasks to export");
+    footer.forEach(pushFolded);
 
     return out.join("\r\n") + "\r\n";
 
@@ -185,7 +181,7 @@
 
   function countExportable(records, options) {
     options = options || {};
-    return (Array.isArray(record) ? records : []).filter(function (r) {
+    return (Array.isArray(records) ? records : []).filter(function (r) {
       return (
         r &&
         toICalDate(r.dueDate) &&
@@ -222,4 +218,4 @@
     countExportable: countExportable,
     filename: filename,
   };
-});
+})();
