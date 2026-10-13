@@ -500,7 +500,6 @@ The commit history follows the same order, with conventional prefixes (`ft:`, `f
 - [Chart.js](https://www.chartjs.org/) for the 7-day chart (MIT).
 - [Font Awesome Free](https://fontawesome.com/) for icons (CC BY 4.0 / SIL OFL 1.1 / MIT).
 - [Google Fonts | Inter](https://fonts.google.com/specimen/Inter) for typography (SIL OFL 1.1).
-- WAI-ARIA Authoring Practices and the WCAG 2.1 AA contrast criteria were used as the reference for the dialog, focus-management and live-region behaviour.
 
 ---
 
@@ -514,13 +513,13 @@ AI tooling was used for documentation wording and for generating seed data only,
 
 ## Contact
 
-|                |                                                              |
-| -------------- | ------------------------------------------------------------ |
-| **Author**     | David Ndizeye                                                |
-| **GitHub**     | [@ndizeyedavid](https://github.com/ndizeyedavid)             |
-| **Email**      | [davidndizeye101@gmail.com](mailto:d.ndiyeze@alustudent.com) |
-| **Repository** | <https://github.com/ndizeyedavid/campus-life-planner>        |
-| **Live app**   | <https://ndizeyedavid.github.io/campus-life-planner>         |
+|                |                                                             |
+| -------------- | ----------------------------------------------------------- |
+| **Author**     | David Ndizeye                                               |
+| **GitHub**     | [@ndizeyedavid](https://github.com/ndizeyedavid)            |
+| **Email**      | [d.ndiyeze@alustudent.com](mailto:d.ndiyeze@alustudent.com) |
+| **Repository** | <https://github.com/ndizeyedavid/campus-life-planner>       |
+| **Live app**   | <https://ndizeyedavid.github.io/campus-life-planner>        |
 
 ---
 
