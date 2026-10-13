@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Month calendar showing Campus Life Planner tasks by due date." />
+    <meta name="theme-color" content="#fc4f24" />
+    <title>Calendar | Campus Life Planner</title>
+
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/main.css" />
+</head>
+
+<body data-page="calendar">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <div class="app">
+        <aside class="sidebar" id="sidebar" aria-label="Primary">
+            <div class="sidebar__inner">
+                <div class="profile">
+                    <div class="profile__avatar" aria-hidden="true">
+                        <img src="/assets/favicon.svg" alt="Logo">
+                    </div>
+                    <div class="profile__meta">
+                        <p class="profile__name">Student</p>
+                        <p class="profile__plan">Campus Life Planner</p>
+                    </div>
+                    <button type="button" class="icon-btn sidebar__menu-close" id="sidebarClose"
+                        aria-label="Close navigation menu">
+                        <i class="fa-solid fa-xmark fa-icon" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" class="icon-btn sidebar__toggle" id="sidebarToggle" aria-expanded="true"
+                        aria-controls="sidebar">
+                        <i class="fa-solid fa-angles-left fa-icon" aria-hidden="true"></i>
+                        <span class="sr-only" id="sidebarToggleLabel">Collapse sidebar</span>
+                    </button>
+                </div>
+
+                <form class="quickfind" role="search" id="quickFindForm" action="table.html" method="get">
+                    <i class="fa-solid fa-magnifying-glass fa-icon" aria-hidden="true"></i>
+                    <label class="sr-only" for="quickFind">Quick find | jump to regex search</label>
+                    <input type="search" id="quickFind" name="q" class="quickfind__input" placeholder="Quick find…"
+                        autocomplete="off" />
+                    <kbd class="quickfind__kbd" id="quickFindKbd" aria-hidden="true">Ctrl K</kbd>
+                    <button type="button" class="icon-btn quickfind__expand" id="sidebarExpand">
+                        <i class="fa-solid fa-magnifying-glass fa-icon" aria-hidden="true"></i>
+                        <span class="sr-only">Expand the sidebar to search</span>
+                    </button>
+                    <button type="submit" class="sr-only">Search</button>
+                </form>
+
+                <nav class="nav" aria-label="Main">
+                    <ul class="nav__list">
+                        <li><a class="nav__item" href="index.html"><i class="fa-solid fa-gauge-high fa-icon"
+                                    aria-hidden="true"></i><span class="nav__label">Dashboard</span></a></li>
+                        <li><a class="nav__item" href="board.html"><i class="fa-solid fa-table-columns fa-icon"
+                                    aria-hidden="true"></i><span class="nav__label">Board</span><span class="nav__badge"
+                                    id="badgeTodo">0</span></a></li>
+                        <li><a class="nav__item" href="table.html"><i class="fa-solid fa-table-list fa-icon"
+                                    aria-hidden="true"></i><span class="nav__label">Table</span></a></li>
+                        <li><a class="nav__item is-active" href="calendar.html" aria-current="page"><i
+                                    class="fa-solid fa-calendar-days fa-icon" aria-hidden="true"></i><span
+                                    class="nav__label">Calendar</span></a></li>
+                        <li><a class="nav__item" href="about.html"><i class="fa-solid fa-circle-info fa-icon"
+                                    aria-hidden="true"></i><span class="nav__label">About</span></a></li>
+                        <li><a class="nav__item" href="settings.html"><i class="fa-solid fa-sliders fa-icon"
+                                    aria-hidden="true"></i><span class="nav__label">Settings</span></a></li>
+                    </ul>
+                </nav>
+
+                <section class="workspace" aria-labelledby="workspaceHeading">
+                    <div class="workspace__head">
+                        <h2 class="workspace__title" id="workspaceHeading">Categories</h2>
+                        <a class="icon-btn" href="settings.html#categories"
+                            aria-label="Manage categories in Settings"><i class="fa-solid fa-plus fa-icon"
+                                aria-hidden="true"></i></a>
+                    </div>
+                    <ul class="workspace__list" id="workspaceList"></ul>
+                </section>
+
+                <div class="sidebar__bottom">
+                    <!-- <button type="button" class="nav__item" id="importBtn">
+            <i class="fa-solid fa-file-import fa-icon" aria-hidden="true"></i><span class="nav__label">Import
+              JSON</span>
+          </button> -->
+                    <button type="button" class="nav__item" id="exportBtn"><i class="fa-solid fa-file-export fa-icon"
+                            aria-hidden="true"></i><span class="nav__label">Export JSON</span></button>
+                </div>
+            </div>
+        </aside>
+
+        <div class="backdrop" id="backdrop" hidden></div>
+
+        <div class="main-wrap">
+            <header class="topbar">
+                <button type="button" class="icon-btn topbar__menu" id="sidebarOpen" aria-label="Open navigation menu"
+                    aria-expanded="false" aria-controls="sidebar">
+                    <i class="fa-solid fa-bars fa-icon" aria-hidden="true"></i>
+                </button>
+                <p class="topbar__crumbs">
+                    <span class="crumbs__root">Campus Life</span>
+                    <span class="crumbs__sep" aria-hidden="true">/</span>
+                    <span class="crumbs__page">Calendar</span>
+                </p>
+                <div class="topbar__actions">
+                    <button type="button" class="btn btn--ghost" id="themeToggle" aria-pressed="false">
+                        <i class="fa-solid fa-moon fa-icon" aria-hidden="true"></i><span class="sr-only"
+                            id="themeToggleLabel">Switch to the dark theme</span>
+                    </button>
+                    <button type="button" class="btn btn--primary" id="addTaskBtn"><i class="fa-solid fa-plus fa-icon"
+                            aria-hidden="true"></i> New Task</button>
+                </div>
+            </header>
+
+            <div id="liveStatus" class="sr-only" role="status" aria-live="polite"></div>
+            <div id="liveAlert" class="sr-only" role="alert" aria-live="assertive"></div>
+
+            <main class="main" id="main-content" tabindex="-1">
+                <div class="view">
+                    <div class="view__head">
+                        <div>
+                            <h1 class="view__title">Calendar</h1>
+                            <p class="view__sub">Every task placed on the day it is due.</p>
+                        </div>
+                        <div class="cal-nav">
+                            <button type="button" class="icon-btn" id="calPrev">
+                                <i class="fa-solid fa-chevron-left fa-icon" aria-hidden="true"></i><span
+                                    class="sr-only">Previous
+                                    month</span>
+                            </button>
+                            <span class="cal-nav__label" id="calLabel" aria-live="polite">&nbsp;</span>
+                            <button type="button" class="icon-btn" id="calNext">
+                                <i class="fa-solid fa-chevron-right fa-icon" aria-hidden="true"></i><span
+                                    class="sr-only">Next
+                                    month</span>
+                            </button>
+                            <button type="button" class="btn btn--ghost btn--sm" id="calToday">Today</button>
+                        </div>
+                    </div>
+
+                    <h2 class="sr-only" id="calHeading">Month view</h2>
+                    <div class="calendar" id="calendar" aria-labelledby="calHeading"></div>
+
+                    <section class="card" style="margin-top:20px" aria-labelledby="calListHeading">
+                        <h2 class="card__title" id="calListHeading">This month&rsquo;s tasks</h2>
+                        <ul class="upcoming-list" id="calList"></ul>
+                    </section>
+                </div>
+            </main>
+
+            <footer class="footer">
+                <div class="footer__inner">
+                    <p>&copy; <span id="year">2026</span> Campus Life Planner &middot; Built and Designed by <a
+                            href="https://github.com/ndizeyedavid" target="_blank">David Ndizeye</a></p>
+
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <div class="modal" id="taskModal" hidden>
+        <div class="modal__backdrop" data-close-modal></div>
+        <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle" id="taskPanel">
+            <div class="modal__head">
+                <h2 class="modal__title" id="modalTitle">New Task</h2>
+                <button type="button" class="icon-btn" data-close-modal><i class="fa-solid fa-xmark fa-icon"
+                        aria-hidden="true"></i><span class="sr-only">Close dialog</span></button>
+            </div>
+            <form id="taskForm" novalidate>
+                <div class="modal__body">
+                    <div class="form-row">
+                        <label for="taskTitle">Title <span class="req" aria-hidden="true">*</span></label>
+                        <input type="text" id="taskTitle" class="input" required aria-required="true" autocomplete="off"
+                            aria-describedby="errTitle hintTitle" />
+
+                        <p class="form-error" id="errTitle" role="alert"></p>
+                    </div>
+                    <div class="form-row">
+                        <label for="taskCategory">Category <span class="req" aria-hidden="true">*</span></label>
+                        <input type="text" id="taskCategory" class="input" list="catDatalist" required
+                            aria-required="true" autocomplete="off" aria-describedby="errCategory hintCategory" />
+                        <datalist id="catDatalist"></datalist>
+
+                        <p class="form-error" id="errCategory" role="alert"></p>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-row">
+                            <label for="taskDuration">Duration (minutes) <span class="req"
+                                    aria-hidden="true">*</span></label>
+                            <input type="text" id="taskDuration" class="input" inputmode="decimal" required
+                                aria-required="true" autocomplete="off" aria-describedby="errDuration" />
+                            <p class="form-error" id="errDuration" role="alert"></p>
+                        </div>
+                        <div class="form-row">
+                            <label for="taskDue">Due date <span class="req" aria-hidden="true">*</span></label>
+                            <input type="date" id="taskDue" class="input" required aria-required="true"
+                                aria-describedby="errDue" />
+                            <p class="form-error" id="errDue" role="alert"></p>
+                        </div>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-row">
+                            <label for="taskStatus">Status</label>
+                            <select id="taskStatus" class="input">
+                                <option value="todo">To Do</option>
+                                <option value="in-progress">In Progress</option>
+                                <option value="done">Done</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <label for="taskPriority">Priority</label>
+                            <select id="taskPriority" class="input">
+                                <option value="low">Low</option>
+                                <option value="medium">Medium</option>
+                                <option value="high">High</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label for="taskImage">Image <span class="form-hint"
+                                style="font-weight:400">(optional)</span></label>
+                        <div class="image-field">
+                            <input type="file" id="taskImage"
+                                accept="image/jpeg,image/png,image/webp,image/gif,image/avif,image/svg+xml"
+                                class="visually-hidden-input" aria-describedby="imageHint imageError" />
+                            <label class="btn btn--ghost btn--sm" for="taskImage">
+                                <i class="fa-solid fa-image fa-icon" aria-hidden="true"></i> Choose image
+                            </label>
+                            <button type="button" class="btn btn--ghost btn--sm" id="taskImageClear" hidden>
+                                <i class="fa-solid fa-xmark fa-icon" aria-hidden="true"></i> Remove
+                            </button>
+                        </div>
+                        <div class="image-preview" id="taskImagePreview" hidden>
+                            <img id="taskImageThumb" alt="" />
+                            <div class="image-preview__meta">
+                                <span id="taskImageName"></span>
+                                <div class="form-row" style="margin:8px 0 0">
+                                    <label for="taskImageAlt" class="sr-only">Alternative text for the image</label>
+                                    <input type="text" id="taskImageAlt" class="input"
+                                        placeholder="Describe the image for screen readers"
+                                        aria-describedby="imageAltHint" />
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <p class="form-error" id="imageError" role="alert"></p>
+                    </div>
+                    <div class="form-row">
+                        <label for="taskNotes">Notes</label>
+                        <textarea id="taskNotes" class="input" rows="3" aria-describedby="hintNotes"></textarea>
+
+                    </div>
+                </div>
+                <div class="modal__foot">
+                    <button type="button" class="btn btn--ghost" data-close-modal>Cancel</button>
+                    <button type="submit" class="btn btn--primary">Save Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal modal--small" id="confirmModal" hidden>
+        <div class="modal__backdrop" data-close-confirm></div>
+        <div class="modal__panel" role="alertdialog" aria-modal="true" aria-labelledby="confirmTitle"
+            aria-describedby="confirmBody" id="confirmPanel">
+            <div class="modal__head">
+                <h2 class="modal__title" id="confirmTitle"><i class="fa-solid fa-triangle-exclamation fa-icon"
+                        aria-hidden="true"></i> <span id="confirmHeading">Delete this task?</span></h2>
+            </div>
+            <p class="confirm__body" id="confirmBody">This cannot be undone.</p>
+            <div class="modal__foot">
+                <button type="button" class="btn btn--ghost" data-close-confirm>Cancel</button>
+                <button type="button" class="btn btn--danger" id="confirmOk">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast" hidden></div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/images.js"></script>
+    <script src="js/validators.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/onboarding.js"></script>
+    <script src="js/calendar.js"></script>
+    <script src="js/state.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
