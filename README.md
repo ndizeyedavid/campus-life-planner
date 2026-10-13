@@ -163,7 +163,7 @@ campus-life-planner/
 ├── calendar.html           # Month grid + accessible list, .ics export
 ├── about.html              # Purpose, features, regex catalog, keyboard map, a11y
 ├── settings.html           # Profile, units, target, categories, images, data
-├── seed.json               # 14 sample records with deliberate edge cases
+├── seed.json               # 19 sample records with deliberate edge cases
 ├── manifest.webmanifest    # PWA manifest (installable, standalone)
 ├── sw.js                   # Service worker: offline shell cache (toggleable)
 ├── css/
@@ -279,7 +279,7 @@ Support helpers: `sanitizeText` collapses whitespace and trims; `escapeRegExp` (
 
 ### Search recipes
 
-The search box accepts any JavaScript regular expression. It is **case-insensitive by default**; add `ci=1` to the URL (`table.html?ci=1&q=…`) to make it case-sensitive. Patterns are compiled inside `try/catch`, so a broken pattern shows an inline error and never breaks the page.
+The search box accepts any JavaScript regular expression. It is **case-insensitive by default** — press the **Match case** button beside the input to switch to case-sensitive, or load `table.html?ci=1&q=…` to start case-sensitive. Patterns are compiled inside `try/catch`, so a broken pattern shows an inline error and never breaks the page.
 
 | Goal                              | Pattern                    | What it does with the sample data                                      |
 | --------------------------------- | -------------------------- | ---------------------------------------------------------------------- |
@@ -304,6 +304,7 @@ The search box accepts any JavaScript regular expression. It is **case-insensiti
 - **Search runs on every keystroke** across title, category, due date, status, priority, notes and duration.
 - **Highlighting** wraps matches in `<mark>` after HTML-escaping both the matched text and the surrounding text, so a pattern like `<img` renders as text and can never inject markup. Empty matches (`""`) advance `lastIndex` instead of looping forever.
 - **Status line** reports `12 of 14 records · 7 matches`, or an inline `Invalid regular expression …` message with `aria-invalid="true"` on the input and an assertive announcement.
+- **Match case** is a toggle button beside the search box. It is a real `aria-pressed` switch, so its state is announced and the button turns accent-coloured when case-sensitive search is on. Search is case-**insensitive** by default.
 - The pattern and case flag are mirrored into the URL (`?q=…&ci=1`), so the Quick find box in the sidebar can deep-link into a filtered table and the state survives a reload or a shared link.
 
 ---
@@ -455,15 +456,15 @@ To test, open `index.html` in the browser and it runs the whole project without 
 
 ## Milestones: where each one lives
 
-| Milestone                                   | Weight | Delivered in                                                                                                                          |
-| ------------------------------------------- | -----: | ------------------------------------------------------------------------------------------------------------------------------------- |
-| **M1** Spec &amp; data model                |    10% | `js/state.js` (schema, id generation, seed data), `about.html` (spec, feature list, a11y plan)                                        |
-| **M2** Semantic HTML &amp; mobile-first CSS |    10% | All six `.html` pages (landmarks, heading order), `css/main.css` (tokens, mobile-first layout, breakpoints)                           |
-| **M3** Forms &amp; regex validation         |    15% | `js/validators.js` (10 rules incl. back-reference, lookahead and lookbehind), inline error UI in `js/ui.js`, `tests.html` assertions  |
-| **M4** Render, sort &amp; regex search      |    20% | `js/search.js` (safe compiler, escaping, `<mark>` highlight), `js/ui.js` (`renderTable`, `sortRecords`, `updateSearch`), `table.html` |
-| **M5** Stats &amp; cap/target               |    15% | `renderDashboard`, `renderTrend`, `renderCap` in `js/ui.js`, polite/assertive live regions in `index.html`                            |
-| **M6** Persistence, import/export, settings |    15% | `js/storage.js` (keys, validation, JSON/CSV/ICS), `js/state.js` (settings &amp; categories), `settings.html`                          |
-| **M7** Polish &amp; a11y audit              |    15% | Focus trap &amp; restore, skip link, `aria-sort`, reduced-motion support, dark theme, PWA manifest, this README, demo video           |
+| Milestone                                   | Weight | Delivered in                                                                                                                                                     |
+| ------------------------------------------- | -----: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **M1** Spec &amp; data model                |    10% | `js/state.js` (schema, id generation, seed data), `about.html` (spec, feature list, a11y plan)                                                                   |
+| **M2** Semantic HTML &amp; mobile-first CSS |    10% | All six `.html` pages (landmarks, heading order), `css/main.css` (tokens, mobile-first layout, breakpoints)                                                      |
+| **M3** Forms &amp; regex validation         |    15% | `js/validators.js` (10 rules incl. back-reference, lookahead and lookbehind), inline error UI in `js/ui.js`, console assertions listed under [Testing](#testing) |
+| **M4** Render, sort &amp; regex search      |    20% | `js/search.js` (safe compiler, escaping, `<mark>` highlight), `js/ui.js` (`renderTable`, `sortRecords`, `updateSearch`), `table.html`                            |
+| **M5** Stats &amp; cap/target               |    15% | `renderDashboard`, `renderTrend`, `renderCap` in `js/ui.js`, polite/assertive live regions in `index.html`                                                       |
+| **M6** Persistence, import/export, settings |    15% | `js/storage.js` (keys, validation, JSON/CSV/ICS), `js/state.js` (settings &amp; categories), `settings.html`                                                     |
+| **M7** Polish &amp; a11y audit              |    15% | Focus trap &amp; restore, skip link, `aria-sort`, reduced-motion support, dark theme, PWA manifest, this README, demo video                                      |
 
 The commit history follows the same order, with conventional prefixes (`ft:`, `fix:`, `ch:`, `stretch:`).
 
