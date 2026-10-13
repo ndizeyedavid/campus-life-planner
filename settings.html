@@ -17,137 +17,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="styles/main.css" />
-  <script>
-    try {
-      var t = localStorage.getItem("campus-life-planner:theme");
-      if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t);
-      if (localStorage.getItem("campus-life-planner:sidebar") === "collapsed") {
-        document.documentElement.setAttribute("data-sidebar", "collapsed");
-      }
-    }  catch (error) {
-      console.log("Failed to load UI states: ", error);
-    }
-  </script>
-  <style>
-    .boot-splash {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      display: grid;
-      place-items: center;
-      background: #fdfcfb;
-      color: #1a1613;
-      padding: 24px;
-      text-align: center;
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif
-    }
-
-    .boot-splash__inner {
-      display: grid;
-      gap: 14px;
-      justify-items: center;
-      max-width: 320px
-    }
-
-    .boot-splash__mark {
-      width: 56px;
-      height: 56px;
-      border-radius: 10px;
-      background: #fc4f24;
-      color: #1a1613;
-      display: grid;
-      place-items: center;
-      font-weight: 700;
-      font-size: 20px;
-      letter-spacing: -.02em
-    }
-
-    .boot-splash__title {
-      font-size: 16px;
-      font-weight: 600;
-      margin: 0
-    }
-
-    .boot-splash__bar {
-      width: 180px;
-      height: 4px;
-      border-radius: 999px;
-      background: #f1eeea;
-      overflow: hidden
-    }
-
-    .boot-splash__fill {
-      display: block;
-      height: 100%;
-      width: 40%;
-      border-radius: 999px;
-      background: #fc4f24;
-      animation: boot-slide 1.1s cubic-bezier(.2, .8, .2, 1) infinite
-    }
-
-    @keyframes boot-slide {
-      0% {
-        transform: translateX(-100%)
-      }
-
-      100% {
-        transform: translateX(250%)
-      }
-    }
-
-    .boot-splash__status {
-      font-size: 13px;
-      color: #6b635b;
-      margin: 0;
-      min-height: 20px
-    }
-
-    html[data-theme="dark"] .boot-splash {
-      background: #14110f;
-      color: #f5f1ee
-    }
-
-    html[data-theme="dark"] .boot-splash__bar {
-      background: #1d222a
-    }
-
-    html[data-theme="dark"] .boot-splash__status {
-      color: #a3aab6
-    }
-
-    .boot-splash.is-leaving {
-      animation: fadeOut .25s cubic-bezier(.2, .8, .2, 1) forwards
-    }
-
-    @keyframes fadeOut {
-      to {
-        opacity: 0;
-        visibility: hidden
-      }
-    }
-
-    @media (prefers-reduced-motion:reduce) {
-      .boot-splash__fill {
-        animation: none;
-        width: 100%
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="css/main.css" />
 </head>
 
 <body data-page="settings">
-  <div class="boot-splash" id="bootSplash">
-    <div class="boot-splash__inner">
-      <div class="boot-splash__mark" aria-hidden="true">
-        <img src="/assets/favicon.svg" alt="Logo">
-      </div>
-      <p class="boot-splash__title">Campus Life Planner</p>
-      <div class="boot-splash__bar" aria-hidden="true"><span class="boot-splash__fill"></span></div>
-      <p class="boot-splash__status" id="bootStatus" role="status" aria-live="polite">Loading your planner&hellip;</p>
-    </div>
-  </div>
-
   <a class="skip-link" href="#main-content">Skip to main content</a>
 
   <div class="app">
@@ -374,7 +247,8 @@
                 <i class="fa-brands fa-google fa-icon" aria-hidden="true"></i> Google Calendar
               </h2>
               <p class="form-hint" style="margin-bottom:12px">
-                Push your tasks to Google Calendar with a calendar button on each task that opens Google's editor with it pre-filled or export everything at once as a standard <code>.ics</code> file.
+                Push your tasks to Google Calendar with a calendar button on each task that opens Google's editor with
+                it pre-filled or export everything at once as a standard <code>.ics</code> file.
               </p>
 
               <div class="form-row" style="margin-bottom:12px">
@@ -562,15 +436,15 @@
 
   <div class="toast" id="toast" hidden></div>
 
-  <script src="scripts/storage.js"></script>
-  <script src="scripts/images.js"></script>
-  <script src="scripts/validators.js"></script>
-  <script src="scripts/search.js"></script>
-  <script src="scripts/onboarding.js"></script>
-  <script src="scripts/calendar.js"></script>
-  <script src="scripts/state.js"></script>
-  <script src="scripts/ui.js"></script>
-  <script src="scripts/app.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/images.js"></script>
+  <script src="js/validators.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/onboarding.js"></script>
+  <script src="js/calendar.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
 </body>
 
-</html>-->
+</html>
