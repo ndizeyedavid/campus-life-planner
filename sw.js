@@ -1,4 +1,4 @@
-const CACHE_VERSION = "clp-v4";
+const CACHE_VERSION = "clp-v5";
 
 const SHELL = [
   "./",
@@ -8,20 +8,18 @@ const SHELL = [
   "calendar.html",
   "about.html",
   "settings.html",
-  "tests.html",
-  "seed.json",
   "manifest.webmanifest",
   "assets/favicon.svg",
-  "styles/main.css",
-  "scripts/storage.js",
-  "scripts/images.js",
-  "scripts/validators.js",
-  "scripts/search.js",
-  "scripts/onboarding.js",
-  "scripts/calendar.js",
-  "scripts/state.js",
-  "scripts/ui.js",
-  "scripts/app.js",
+  "css/main.css",
+  "js/storage.js",
+  "js/images.js",
+  "js/validators.js",
+  "js/search.js",
+  "js/onboarding.js",
+  "js/calendar.js",
+  "js/state.js",
+  "js/ui.js",
+  "js/app.js",
 ];
 
 self.addEventListener("install", (event) => {
