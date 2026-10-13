@@ -1077,6 +1077,7 @@ body.is-touch-dragging {
 .search-box__hint {
   font-size: 12px;
   color: var(--color-text-muted);
+  margin-bottom: 8px;
 }
 .search-box__hint code {
   background: var(--color-surface-2);
