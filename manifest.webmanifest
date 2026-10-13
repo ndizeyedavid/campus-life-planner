@@ -1,0 +1,19 @@
+{
+  "name": "Campus Life Planner",
+  "short_name": "Planner",
+  "description": "My app for planning tasks and events",
+  "start_url": "index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fdfcfb",
+  "theme_color": "#fc4f24",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
