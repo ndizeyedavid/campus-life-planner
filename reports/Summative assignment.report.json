@@ -1,18 +1,18 @@
 {
   "reportVersion": "1.0",
   "assignmentId": "assignment-1791734188745-bjq9lop",
-  "assignmentName": "adsad",
+  "assignmentName": "Summative Frontend Web Design",
   "generatedAt": 1791877870461,
   "metrics": {
     "assignmentId": "assignment-1791734188745-bjq9lop",
     "authorship": {
       "totalLines": 3147,
-      "manualLines": 731,
+      "manualLines": 2416,
       "permittedAILines": 0,
-      "prohibitedAILines": 2416,
+      "prohibitedAILines": 731,
       "flaggedAILines": 0,
-      "authorshipPercentage": 76.77152843978392,
-      "prohibitedPercentage": 76.77152843978392
+      "authorshipPercentage": 16.77152843978392,
+      "prohibitedPercentage": 16.77152843978392
     },
     "ownership": {
       "score": 100,
@@ -22,33 +22,6 @@
       "averageReviewTimeMs": 858780.6666666666
     },
     "violations": [
-      {
-        "type": "agentic-use",
-        "severity": "high",
-        "message": "Agentic AI use detected (files modified by an external agent or AI commit markers)",
-        "details": {
-          "filePath": "c:/Users/MELLOW/Desktop/Projects/ALU/campus-life-planner/css/main.css",
-          "detectionMethod": "external-file-change",
-          "lines": 862,
-          "tool": "ai"
-        },
-        "firstDetectedAt": 1791746639846,
-        "lastDetectedAt": 1791877806502,
-        "count": 14
-      },
-      {
-        "type": "authorship-exceeded",
-        "severity": "medium",
-        "message": "AI authorship 76.8% exceeds limit of 30%",
-        "details": {
-          "actualPercentage": 76.77152843978392,
-          "maxAllowedPercentage": 30,
-          "aiLines": 2416
-        },
-        "firstDetectedAt": 1791877806502,
-        "lastDetectedAt": 1791877806502,
-        "count": 1
-      },
       {
         "type": "tracking-gap",
         "severity": "low",
@@ -16877,6 +16850,6 @@
   "repoHeadCommit": "c18ab96d5acaa1a88b5e059b26d806e51e267b8d",
   "integrity": {
     "algorithm": "sha256",
-    "hash": "a3c7590be99d8b3e7ef71ac5fc51192483d20f640498a0ab5006c86ad3da7940"
+    "hash": "0d94947815812588fc59020abb075d50ab033ff58ebbafaaecf38d1d57ef9068"
   }
 }
