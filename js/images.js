@@ -30,7 +30,6 @@
         reject(new Error("IndexedDB is not available."));
         return;
       }
-
       var request;
       try {
         request = indexedDB.open(DB_NAME, DB_VERSION);
@@ -42,30 +41,21 @@
       request.onupgradeneeded = function (event) {
         var db = event.target.result;
         if (!db.objectStoreNames.contains(STORE)) {
-          var store = db.createObjectStore(STORE, {
-            keyPath: "id",
-          });
-
+          var store = db.createObjectStore(STORE, { keyPath: "id" });
           store.createIndex("taskId", "taskId", { unique: false });
         }
       };
-
       request.onsuccess = function (event) {
         resolve(event.target.result);
       };
-
-      request.onerror = function (event) {
+      request.onerror = function () {
         reject(request.error || new Error("Could not open the image store."));
       };
-
       request.onblocked = function () {
-        reject(new Error("The image store is blocked by another tab"));
+        reject(new Error("The image store is blocked by another tab."));
       };
     }).catch(function (err) {
-      console.warn(
-        "Images: falling back to in-memory storage. Error: ",
-        err.message,
-      );
+      console.warn("Images: falling back to in-memory storage |", err.message);
       usingMemory = true;
       return null;
     });
@@ -417,6 +407,4 @@
       return usingMemory;
     },
   };
-
-
-});
+})();

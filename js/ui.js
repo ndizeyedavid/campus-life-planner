@@ -1125,7 +1125,7 @@
       var glyph = btn.querySelector(".sort-ind");
       if (glyph) {
         glyph.className =
-          "fa-solid fa-icon sort-ind" +
+          "fa-solid fa-icon sort-ind " +
           (active
             ? ui.sortDir === "asc"
               ? "fa-arrow-up"
