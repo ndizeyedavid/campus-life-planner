@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Campus Life Planner">
+  <rect width="64" height="64" rx="14" fill="#fc4f24"/>
+  <path d="M23 13v7M41 13v7" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+  <rect x="13" y="17" width="38" height="36" rx="6" fill="#ffffff"/>
+  <path d="M18 25h28" fill="none" stroke="#1a1613" stroke-width="2" stroke-linecap="round"/>
+  <g fill="#e7e2dc">
+    <rect x="18" y="31" width="6" height="6" rx="1.5"/>
+    <rect x="27" y="31" width="6" height="6" rx="1.5"/>
+    <rect x="36" y="31" width="6" height="6" rx="1.5"/>
+    <rect x="45" y="31" width="6" height="6" rx="1.5"/>
+    <rect x="22" y="41" width="6" height="6" rx="1.5"/>
+    <rect x="31" y="41" width="6" height="6" rx="1.5"/>
+    <rect x="40" y="41" width="6" height="6" rx="1.5"/>
+  </g>
+  <rect x="27" y="31" width="6" height="6" rx="1.5" fill="#fc4f24"/>
+</svg>
