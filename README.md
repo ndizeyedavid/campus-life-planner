@@ -27,32 +27,16 @@
 
 ---
 
-## Contents
+## Live demo, repository and demo video
 
-1. [Overview](#overview)
-2. [Live demo, repository and demo video](#live-demo-repository-and-demo-video)
-3. [Feature highlights](#feature-highlights)
-4. [The six pages](#the-six-pages)
-5. [Quick start](#quick-start)
-6. [Project structure](#project-structure)
-7. [Architecture](#architecture)
-8. [Data model](#data-model)
-9. [Regex catalog](#regex-catalog)
-10. [Sorting, search and highlighting](#sorting-search-and-highlighting)
-11. [Dashboard, stats and the weekly target](#dashboard-stats-and-the-weekly-target)
-12. [Units and duration conversion](#units-and-duration-conversion)
-13. [Persistence, import and export](#persistence-import-and-export)
-14. [Accessibility notes](#accessibility-notes)
-15. [Keyboard map](#keyboard-map)
-16. [Responsive design](#responsive-design)
-17. [Motion and animation](#motion-and-animation)
-18. [Testing](#testing)
-19. [Milestones: where each one lives](#milestones-where-each-one-lives)
-20. [Stretch features](#stretch-features)
-21. [Browser support and notes for reviewers](#browser-support-and-notes-for-reviewers)
-22. [Acknowledgements](#acknowledgements)
-23. [Academic integrity and individual work](#academic-integrity-and-individual-work)
-24. [Contact](#contact)
+| Resource                | Link                                                         |
+| ----------------------- | ------------------------------------------------------------ |
+| Live app (GitHub Pages) | <https://ndizeyedavid.github.io/campus-life-planner>         |
+| Source repository       | <https://github.com/ndizeyedavid/campus-life-planner>        |
+| Issues / feedback       | <https://github.com/ndizeyedavid/campus-life-planner/issues> |
+| Demo video              | <https://youtu.be/kZ4SKsYirRI>            |
+
+The demo video walks through: keyboard-only navigation, the regex edge cases (invalid pattern handling, duplicate-word back-reference, time-token lookbehind), a JSON export &rarr; edit &rarr; import round trip, and the responsive layout at phone, tablet and desktop widths.
 
 ---
 
@@ -69,24 +53,11 @@ This repository is the **Campus Life Planner** theme of the _Summative Assignmen
 |                 |                                                                                                                                              |
 | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Theme**       | Campus Life Planner (tasks &amp; events, durations, tags/categories, search)                                                                 |
-| **Stack**       | Vanilla HTML5, CSS3 (custom properties, Grid + Flexbox), ES5-compatible JS in IIFE modules                                                   |
+| **Stack**       | HTML 5, CSS 3 , Javascript                                                   |
 | **Third-party** | [Chart.js](https://www.chartjs.org/) (7-day chart only), Font Awesome icons, Google Fonts (Inter); all via CDN, all with a graceful fallback |
 | **Storage**     | `localStorage` for records and settings, IndexedDB for optional image attachments                                                            |
 | **Offline**     | Optional service worker cache, switchable from Settings                                                                                      |
 | **Deployment**  | GH Pages: <https://ndizeyedavid.github.io/campus-life-planner>                                                                               |
-
----
-
-## Live demo, repository and demo video
-
-| Resource                | Link                                                         |
-| ----------------------- | ------------------------------------------------------------ |
-| Live app (GitHub Pages) | <https://ndizeyedavid.github.io/campus-life-planner>         |
-| Source repository       | <https://github.com/ndizeyedavid/campus-life-planner>        |
-| Issues / feedback       | <https://github.com/ndizeyedavid/campus-life-planner/issues> |
-| Demo video              | <https://youtu.be/S1uWHjhluTI?list=RDS1uWHjhluTI>            |
-
-The demo video walks through: keyboard-only navigation, the regex edge cases (invalid pattern handling, duplicate-word back-reference, time-token lookbehind), a JSON export &rarr; edit &rarr; import round trip, and the responsive layout at phone, tablet and desktop widths.
 
 ---
 
